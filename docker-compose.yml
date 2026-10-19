@@ -1,0 +1,20 @@
+services:
+  frontend:
+    build: .
+    image: averkiyeva/docker-hw:1.0
+    ports:
+      - "8080:80"
+    depends_on:
+      - api
+
+  api:
+    image: containous/whoami
+
+  logger:
+    image: busybox
+    command: sh -c 'while true; do date "+%Y-%m-%d %H:%M:%S" >> /data/log.txt; sleep 5; done'
+    volumes:
+      - logger_data:/data
+
+volumes:
+  logger_data:
